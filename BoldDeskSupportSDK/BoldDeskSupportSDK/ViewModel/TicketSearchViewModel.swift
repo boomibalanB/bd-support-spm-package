@@ -1,4 +1,3 @@
-
 import SwiftUI
 @MainActor
 class TicketSearchViewModel: ObservableObject {
