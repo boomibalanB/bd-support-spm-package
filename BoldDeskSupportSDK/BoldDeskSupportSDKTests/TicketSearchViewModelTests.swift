@@ -46,13 +46,13 @@ final class TicketSearchViewModelTests: XCTestCase {
         }
     }
 
-    func makeTickets(count: Int) -> [TicketSearchModel] {
+    @MainActor func makeTickets(count: Int) -> [TicketSearchModel] {
         return (0..<count).map { i in
             TicketSearchModel(ticketId: i, title: "t\(i)", status: nil, requestedBy: nil, createdOn: "", formattedCreatedOn: "")
         }
     }
 
-    func test_clearSearch_resetsState() {
+    @MainActor func test_clearSearch_resetsState() {
         let vm = TicketSearchViewModel()
         vm.searchText = "hello"
         vm.tickets = makeTickets(count: 3)
@@ -65,21 +65,21 @@ final class TicketSearchViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isRefreshing)
     }
 
-    func test_openFilter_setsFlag() {
+    @MainActor func test_openFilter_setsFlag() {
         let vm = TicketSearchViewModel()
         XCTAssertFalse(vm.showFilterSheet)
         vm.openFilter()
         XCTAssertTrue(vm.showFilterSheet)
     }
 
-    func test_hasSearched_computedProperty() {
+    @MainActor func test_hasSearched_computedProperty() {
         let vm = TicketSearchViewModel()
         XCTAssertFalse(vm.hasSearched)
         vm.searchText = "x"
         XCTAssertTrue(vm.hasSearched)
     }
 
-    func test_canLoadMore_and_loading_flags() {
+    @MainActor func test_canLoadMore_and_loading_flags() {
         let vm = TicketSearchViewModel()
         // default hasMoreData is true internally, so canLoadMore should be true
         XCTAssertTrue(vm.canLoadMore)
@@ -96,7 +96,7 @@ final class TicketSearchViewModelTests: XCTestCase {
         XCTAssertFalse(vm.canLoadMore)
     }
 
-    func test_searchTickets_withEmpty_searchClears() {
+    @MainActor func test_searchTickets_withEmpty_searchClears() {
         let vm = TestableSearchViewModel()
         vm.searchText = ""
         vm.tickets = makeTickets(count: 2)
@@ -106,7 +106,7 @@ final class TicketSearchViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isSearching)
     }
 
-    func test_searchTickets_withText_performsSearch() {
+    @MainActor func test_searchTickets_withText_performsSearch() {
         let vm = TestableSearchViewModel()
         vm.searchText = "query"
         vm.searchTickets()
@@ -115,7 +115,7 @@ final class TicketSearchViewModelTests: XCTestCase {
         XCTAssertEqual(vm.tickets.count, 1)
     }
 
-    func test_refreshTickets_and_loadMore_behaviors() {
+    @MainActor func test_refreshTickets_and_loadMore_behaviors() {
         let vm = TestableSearchViewModel()
         vm.searchText = "q"
         vm.refreshTickets()

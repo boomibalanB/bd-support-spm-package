@@ -14,17 +14,16 @@ final class TicketEditDetailsViewModelTests: XCTestCase {
         override func getFieldDependencies() async { }
     }
 
-    func makeField(id: Int, control: String, apiName: String? = nil) -> FormFieldModel {
+    @MainActor func makeField(id: Int, control: String, apiName: String? = nil) -> FormFieldModel {
         return FormFieldModel(
             id: id,
             labelForCustomerPortal: "Label",
             isRequiredInCustomerPortal: false,
-            fieldControlName: control,
-            apiName: apiName
+            apiName: apiName, fieldControlName: control
         )
     }
 
-    func test_updatedEnteredText_and_dates_and_radio_updates() async {
+    @MainActor func test_updatedEnteredText_and_dates_and_radio_updates() async {
         let vm = TestableViewModel(ticketId: "0")
         vm.formFieldModel = [makeField(id: 1, control: FormFieldType.singleLineTextBox.value)]
 
@@ -41,7 +40,7 @@ final class TicketEditDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(vm.formFieldModel[0].isChecked, false)
     }
 
-    func test_hasFormChanged_detection() async {
+    @MainActor func test_hasFormChanged_detection() async {
         let vm = TestableViewModel(ticketId: "0")
         let original = FormFieldModel(id: 1, labelForCustomerPortal: "L", isRequiredInCustomerPortal: false, fieldControlName: FormFieldType.singleLineTextBox.value)
         vm.existingFormModel = [original]
@@ -52,7 +51,7 @@ final class TicketEditDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(vm.hasFormChanged)
     }
 
-    func test_validations_date_checkbox_single_multi_and_cc_and_numeric() async {
+    @MainActor func test_validations_date_checkbox_single_multi_and_cc_and_numeric() async {
         let vm = TestableViewModel(ticketId: "0")
 
         // Date required
@@ -95,7 +94,7 @@ final class TicketEditDetailsViewModelTests: XCTestCase {
         XCTAssertFalse(vm.textFieldValidation(index: 0, text: "20"))
     }
 
-    func test_validateAndSave_combines_field_validations() async {
+    @MainActor func test_validateAndSave_combines_field_validations() async {
         let vm = TestableViewModel(ticketId: "0")
 
         var f1 = makeField(id: 1, control: FormFieldType.singleLineTextBox.value)

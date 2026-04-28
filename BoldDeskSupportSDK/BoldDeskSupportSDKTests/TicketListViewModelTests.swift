@@ -3,7 +3,7 @@ import XCTest
 
 final class TicketListViewModelTests: XCTestCase {
 
-    func makeSampleTicket(id: Int = 1) -> Ticket {
+    @MainActor func makeSampleTicket(id: Int = 1) -> Ticket {
         return Ticket(
             ticketId: id,
             title: "Sample",
@@ -14,7 +14,7 @@ final class TicketListViewModelTests: XCTestCase {
         )
     }
 
-    func test_canLoadMore_whenTicketsLessThanTotal_returnsTrue() {
+    @MainActor func test_canLoadMore_whenTicketsLessThanTotal_returnsTrue() {
         let vm = TicketListViewModel()
         vm.tickets = []
         vm.totalTicketsCount = 10
@@ -22,7 +22,7 @@ final class TicketListViewModelTests: XCTestCase {
         XCTAssertTrue(vm.canLoadMore)
     }
 
-    func test_canLoadMore_whenTicketsEqualTotal_returnsFalse() {
+    @MainActor func test_canLoadMore_whenTicketsEqualTotal_returnsFalse() {
         let vm = TicketListViewModel()
         vm.tickets = [makeSampleTicket()]
         vm.totalTicketsCount = 1
@@ -30,7 +30,7 @@ final class TicketListViewModelTests: XCTestCase {
         XCTAssertFalse(vm.canLoadMore)
     }
 
-    func test_shouldShowNoMoreItems_whenEmptyTickets_returnsFalse() {
+    @MainActor func test_shouldShowNoMoreItems_whenEmptyTickets_returnsFalse() {
         let vm = TicketListViewModel()
         vm.tickets = []
         vm.totalTicketsCount = 0
@@ -38,7 +38,7 @@ final class TicketListViewModelTests: XCTestCase {
         XCTAssertFalse(vm.shouldShowNoMoreItems)
     }
 
-    func test_getViewItems_containsAtLeastMyTicket() {
+    @MainActor func test_getViewItems_containsAtLeastMyTicket() {
         let vm = TicketListViewModel()
         let items = vm.getViewItems()
 

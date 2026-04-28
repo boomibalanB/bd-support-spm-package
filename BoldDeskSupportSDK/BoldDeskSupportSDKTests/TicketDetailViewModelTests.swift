@@ -17,7 +17,6 @@ final class TicketDetailViewModelTests: XCTestCase {
             } else if let t = simulateTicket {
                 ticketDetails = t
                 AppConstant.fileToken = t.dataToken
-                hasLoaded = true
             }
 
             isLoading = false
@@ -41,7 +40,7 @@ final class TicketDetailViewModelTests: XCTestCase {
         }
     }
 
-    func makeTicket(id: Int = 1, token: String? = "tok") -> TicketDetailObject {
+    @MainActor func makeTicket(id: Int = 1, token: String? = "tok") -> TicketDetailObject {
         return TicketDetailObject(
             ticketId: id,
             title: "T",
@@ -57,7 +56,7 @@ final class TicketDetailViewModelTests: XCTestCase {
         )
     }
 
-    func test_defaults_beforeActions() {
+    @MainActor func test_defaults_beforeActions() {
         let vm = TestableTicketDetailViewModel(ticketId: 42)
         XCTAssertTrue(vm.isLoading)
         XCTAssertFalse(vm.hasLoaded)
@@ -65,7 +64,7 @@ final class TicketDetailViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isShowAccessDeniedPage)
     }
 
-    func test_loadTicketDetails_success_setsTicketAndToken() async {
+    @MainActor func test_loadTicketDetails_success_setsTicketAndToken() async {
         let vm = TestableTicketDetailViewModel(ticketId: 2)
         vm.simulateTicket = makeTicket(id: 2, token: "mytoken")
 
@@ -77,7 +76,7 @@ final class TicketDetailViewModelTests: XCTestCase {
         XCTAssertEqual(AppConstant.fileToken, "mytoken")
     }
 
-    func test_loadTicketDetails_accessDenied_setsFlag() async {
+    @MainActor func test_loadTicketDetails_accessDenied_setsFlag() async {
         let vm = TestableTicketDetailViewModel(ticketId: 3)
         vm.simulateAccessDenied = true
 
@@ -87,7 +86,7 @@ final class TicketDetailViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isLoading)
     }
 
-    func test_closeTicket_triggersRefresh() async {
+    @MainActor func test_closeTicket_triggersRefresh() async {
         let vm = TestableTicketDetailViewModel(ticketId: 4)
         vm.simulateTicket = makeTicket(id: 4, token: "t4")
 
@@ -98,7 +97,7 @@ final class TicketDetailViewModelTests: XCTestCase {
         XCTAssertEqual(AppConstant.fileToken, "t4")
     }
 
-    func test_deleteMessage_callsCallback_and_updatesState() async {
+    @MainActor func test_deleteMessage_callsCallback_and_updatesState() async {
         let vm = TestableTicketDetailViewModel(ticketId: 5)
         let exp = expectation(description: "onMessageDeleted called")
 
