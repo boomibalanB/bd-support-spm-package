@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreText
 
 enum AppIcons: String, CaseIterable {
     case underline = "\u{e800}"
@@ -495,7 +496,34 @@ struct AppIcon: View {
     var size: CGFloat
     var color: Color
 
+    // Ensure the custom icon font is registered once at runtime.
+    private static var _fontRegistered: Bool = false
+    private static func registerFontIfNeeded() {
+        guard !_fontRegistered else { return }
+
+        let bundle: Bundle = {
+            #if SWIFT_PACKAGE
+            return Bundle.module
+            #else
+            return Bundle.main
+            #endif
+        }()
+
+        // Try common locations for the font inside the bundle
+        let possibleURLs = [
+            bundle.url(forResource: "CustomIcons", withExtension: "ttf", subdirectory: "Assets/Fonts"),
+            bundle.url(forResource: "CustomIcons", withExtension: "ttf")
+        ]
+
+        for case let url? in possibleURLs {
+            CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+            _fontRegistered = true
+            break
+        }
+    }
+
     init(icon: AppIcons, size: CGFloat = 20, color: Color = Color.textTeritiaryColor) {
+        Self.registerFontIfNeeded()
         self.icon = icon
         self.size = size
         self.color = color
