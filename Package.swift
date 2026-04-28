@@ -10,7 +10,7 @@ let package = Package(
         .library(
             name: "BoldDeskSupportSDK",
             targets: ["BoldDeskSupportSDK"]
-        ),
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "2.2.0"),
@@ -27,15 +27,7 @@ let package = Package(
                 .product(name: "Sentry", package: "sentry-cocoa"),
                 .product(name: "PhoneNumberKit", package: "PhoneNumberKit"),
             ],
-            path: "BoldDeskSupportSDK",
-            settings: [
-                .define("SWIFT_PACKAGE")
-            ],
-            linkerSettings: [
-                .linkedFramework("WebKit"),
-                .linkedFramework("QuickLook")
-            ]
-        ),
-    ],
-    swiftLanguageVersions: [.v5]
+            path: "BoldDeskSupportSDK"
+        )
+    ]
 )
