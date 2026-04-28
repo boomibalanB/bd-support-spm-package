@@ -1,3 +1,5 @@
+
+import SwiftUI
 @MainActor
 class TicketSearchViewModel: ObservableObject {
     @Published var tickets: [TicketSearchModel] = []
