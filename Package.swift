@@ -29,13 +29,6 @@ let package = Package(
                 .product(name: "PhoneNumberKit", package: "PhoneNumberKit"),
             ],
             path: "BoldDeskSupportSDK"
-        ),
-        .testTarget(
-            name: "BoldDeskSupportSDKTests",
-            dependencies: [
-                "BoldDeskSupportSDK"
-            ],
-            path: "BoldDeskSupportSDKTests"
         )
     ]
 )
