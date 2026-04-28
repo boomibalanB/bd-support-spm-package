@@ -28,7 +28,10 @@ let package = Package(
                 .product(name: "Sentry", package: "sentry-cocoa"),
                 .product(name: "PhoneNumberKit", package: "PhoneNumberKit"),
             ],
-            path: "BoldDeskSupportSDK"
+            path: "BoldDeskSupportSDK",
+            resources: [
+                .process("Assets/Fonts")
+            ]
         )
     ]
 )
