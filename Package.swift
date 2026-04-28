@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "BoldDeskSupportSDK",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v14)
     ],
