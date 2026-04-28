@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.1.4"),
         .package(url: "https://github.com/SDWebImage/SDWebImageSVGCoder.git", from: "1.8.0"),
-        .package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.58.1"),
+        .package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.57.3"),
         .package(url: "https://github.com/marmelroy/PhoneNumberKit.git", from: "4.2.10"),
     ],
     targets: [
