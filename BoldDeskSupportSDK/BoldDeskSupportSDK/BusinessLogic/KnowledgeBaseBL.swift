@@ -41,12 +41,13 @@ class KnowledgeBaseBL {
     func getKbHTMLContent(articleId: Int, articleName: String) async throws
         -> APIResponse
     {
-        let res = try await apiService.sendAsync(
+         let res = try await apiService.sendAsync(
             endpointURL: BDSupportSDK.isFromChatSDK
-            ? "/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)?&isChatWidgetRequest=true"
+            ? "en-US/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)?&isChatWidgetRequest=true"
                 : "/kb/article/\(articleId)/\(articleName)?isInternalRefresh=false&canRedirectUrl=true",
             httpMethod: "get",
-            baseURL: AppConstant.baseUrl
+            baseURL: BDSupportSDK.isFromChatSDK ? BDSupportSDK.chatData?.brandURL ?? ""
+            : AppConstant.baseUrl
         )
         return res
     }

@@ -9,7 +9,7 @@ enum ResourceManager {
     
     /// Returns the bundle where your framework's resources live
     static var frameworkBundle: Bundle {
-        return Bundle(for: BundleLocator.self)
+        return Bundle.module
     }
     
     // MARK: - Font Loading

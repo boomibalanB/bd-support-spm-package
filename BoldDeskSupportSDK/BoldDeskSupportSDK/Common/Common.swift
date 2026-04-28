@@ -240,7 +240,7 @@ private class BundleLocator {}
 
 extension Bundle {
     static var framework: Bundle {
-        return Bundle(for: BundleLocator.self)
+        return Bundle.module
     }
 }
 
