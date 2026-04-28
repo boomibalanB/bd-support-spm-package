@@ -27,7 +27,7 @@ let package = Package(
                 .product(name: "Sentry", package: "sentry-cocoa"),
                 .product(name: "PhoneNumberKit", package: "PhoneNumberKit"),
             ],
-            path: "Sources/BoldDeskSupportSDK",
+            path: "BoldDeskSupportSDK",
             settings: [
                 .define("SWIFT_PACKAGE")
             ],
