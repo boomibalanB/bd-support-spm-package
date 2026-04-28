@@ -28,7 +28,7 @@ struct FormFieldModel: Identifiable, Decodable, Equatable {
     let hideInCreateFormCustomerPortal: Bool?
     let targetModuleId: Int?
     let lookUpFieldConfiguration: String?
-    let additionalFieldValidation: AdditionalFieldValidation?
+    var additionalFieldValidation: AdditionalFieldValidation?
     let placeholderForAgentPortal: String?
     let placeholderForCustomerPortal: String?
     let customErrorMessage: String?
