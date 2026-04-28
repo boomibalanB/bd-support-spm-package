@@ -43,7 +43,7 @@ class KnowledgeBaseBL {
     {
          let res = try await apiService.sendAsync(
             endpointURL: BDSupportSDK.isFromChatSDK
-            ? "en-US/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)?&isChatWidgetRequest=true"
+            ? "/en-US/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)?&isChatWidgetRequest=true"
                 : "/kb/article/\(articleId)/\(articleName)?isInternalRefresh=false&canRedirectUrl=true",
             httpMethod: "get",
             baseURL: BDSupportSDK.isFromChatSDK ? BDSupportSDK.chatData?.brandURL ?? ""
@@ -83,10 +83,11 @@ class KnowledgeBaseBL {
         let jsonData = try JSONSerialization.data(withJSONObject: payload, options: [])
         let res = try await apiService.sendAsync(
             endpointURL: BDSupportSDK.isFromChatSDK
-            ? "/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)/satisfaction_feedback"
+            ? "/en-US/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)/satisfaction_feedback"
             : "/kb/article/\(articleId)/satisfaction_feedback",
             httpMethod: "post",
-            baseURL: AppConstant.baseUrl,
+            baseURL: BDSupportSDK.isFromChatSDK ? BDSupportSDK.chatData?.brandURL ?? ""
+            : AppConstant.baseUrl,
             body: jsonData
         )
         return res
@@ -96,10 +97,11 @@ class KnowledgeBaseBL {
         let jsonData = try JSONSerialization.data(withJSONObject: payload, options: [])
         let res = try await apiService.sendAsync(
             endpointURL: BDSupportSDK.isFromChatSDK
-            ? "/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)/satisfaction_feedback"
+            ? "/en-US/widget/\(BDSupportSDK.chatData?.appKey ?? "")/article/\(articleId)/satisfaction_feedback"
             : "/kb/article/\(articleId)/satisfaction_feedback",
             httpMethod: "post",
-            baseURL: AppConstant.baseUrl,
+            baseURL: BDSupportSDK.isFromChatSDK ? BDSupportSDK.chatData?.brandURL ?? ""
+            : AppConstant.baseUrl,
             body: jsonData
         )
         return res

@@ -508,7 +508,7 @@ struct AppIcon: View {
 
     var body: some View {
         Text(icon.unicode)
-            .font(.custom("fontello", size: size))
+            .font(.custom("CustomIcons", size: size))
             .foregroundColor(color)
     }
 }
